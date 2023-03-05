@@ -1,0 +1,25 @@
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8010/eureka
+  instance:
+    prefer-ip-address: true
+server:
+  port: 8011
+spring:
+  application:
+    name: lmsgateway
+  cloud:
+    gateway:
+      routes: 
+      - id: lmsdashboard
+        uri: lb://lmsdashboard
+        predicates:
+        - Path=/dashboard/**
+          
+      - id: lmscourses
+        uri: lb://lmscourses
+        predicates:
+        - Path=/**
